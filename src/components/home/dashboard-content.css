@@ -1,0 +1,41 @@
+.balance-card {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.balance-label {
+    display: flex;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.balance-amount {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.eye-icon {
+    font-size: 24px;
+    opacity: 0.8;
+}
+
+.action-grid {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.action-button {
+    color: white;
+}
+
+p {
+    font-size: 12px;
+    text-align: center;
+    /*margin-top: 4px;*/
+}

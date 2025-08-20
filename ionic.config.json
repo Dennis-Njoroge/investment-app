@@ -1,0 +1,8 @@
+{
+  "name": "Investment",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "e05be400"
+}
