@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
     IonPage,
     IonHeader,
@@ -17,10 +17,17 @@ import {
     IonIcon,
 } from "@ionic/react";
 import { pencilOutline } from "ionicons/icons";
-
+import {publish, subscribe} from '@ionic/portals';
 interface PageProps {
     auth: any;
 }
+
+type Messages =
+    | { topic: "cart:checkout"; data: 'test'}
+    | { topic: "show-pin"; data: "cancel" | "Yes" | "No" }
+    | { topic: "profile:update"; data: 'User' };
+
+
 
 const TopUp: React.FC<PageProps> = ({ auth }) => {
     const [amount, setAmount] = useState<string>("");
@@ -35,7 +42,7 @@ const TopUp: React.FC<PageProps> = ({ auth }) => {
     };
 
     const handleConfirm = () => {
-        auth?.showPin()
+        publish<Messages>({ topic: "show-pin", data: "Yes" });
         console.log("Depositing KSH.", amount);
         // Trigger API call or payment logic here
     };
@@ -43,6 +50,20 @@ const TopUp: React.FC<PageProps> = ({ auth }) => {
     const handleEdit = () => {
         setStep(1);
     };
+
+    useEffect(() => {
+        const subscription = subscribe("show-pin", (event ) => {
+            console.log("Received show-pin event:", event.data);
+            // Here you can call your modal logic inside the Ionic app
+            // @ts-ignore
+            alert(`Enter PIN to confirm ${event?.data.currency} ${event?.data.amount}`);
+        });
+
+        return () => {
+            // @ts-ignore
+            subscription.remove();
+        };
+    }, []);
 
     return (
         <IonPage>
