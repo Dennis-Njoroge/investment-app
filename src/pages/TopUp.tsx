@@ -42,21 +42,26 @@ const TopUp: React.FC<PageProps> = ({ auth }) => {
     };
 
     const handleConfirm = () => {
-        publish<Messages>({ topic: "show-pin", data: "Yes" });
+        publish({
+            topic: "show-pin",
+            data: { show: "Yes", amount }
+        });
         console.log("Depositing KSH.", amount);
-        // Trigger API call or payment logic here
     };
+
 
     const handleEdit = () => {
         setStep(1);
     };
 
     useEffect(() => {
-        const subscription = subscribe("show-pin", (event ) => {
+        const subscription = subscribe("verified-pin", (event ) => {
             console.log("Received show-pin event:", event.data);
             // Here you can call your modal logic inside the Ionic app
             // @ts-ignore
-            alert(`Enter PIN to confirm ${event?.data.currency} ${event?.data.amount}`);
+            if (event.data.verified){
+                alert(`Transaction Completed Successfully!`);
+            }
         });
 
         return () => {
