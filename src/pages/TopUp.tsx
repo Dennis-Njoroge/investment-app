@@ -56,14 +56,8 @@ const TopUp: React.FC<PageProps> = ({ auth }) => {
 
     useEffect(() => {
         const subscription = subscribe("verified-pin", (event ) => {
-            console.log("Received show-pin event:", event.data);
-            // Here you can call your modal logic inside the Ionic app
-            // @ts-ignore
-            if (event.data.verified){
-                alert(`Transaction Completed Successfully!`);
-            }
+            alert(`Transaction Completed Successfully!`);
         });
-
         return () => {
             // @ts-ignore
             subscription.remove();
