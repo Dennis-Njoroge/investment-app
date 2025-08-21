@@ -35,6 +35,7 @@ const TopUp: React.FC<PageProps> = ({ auth }) => {
     };
 
     const handleConfirm = () => {
+        auth?.showPin()
         console.log("Depositing KSH.", amount);
         // Trigger API call or payment logic here
     };
